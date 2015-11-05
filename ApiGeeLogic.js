@@ -1,5 +1,5 @@
 var client;
-var myEntity={type:'person', name:'secondOne', first:'jane',last:'doe',job:'analyst'};
+//var myEntity={type:'person', name:'secondOne', first:'jane',last:'doe',job:'analyst'};
 
 function LogIn()
 {

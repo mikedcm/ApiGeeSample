@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<p id='res'></p>
+
+<script type="text/javascript" src="https://apigee.com/usergrid/sdk/usergrid.0.10.5.js"></script>
+<script>
+var client = new Usergrid.Client({
+	orgName:"MikePete",
+	appName:"sandbox"});
+//var myEntity={type:'person', name:'secondOne', first:'jane',last:'doe',job:'analyst'};
+var queryOption=
+{type: 'person',
+ qs: {ql:"where first contains '*ane'"}};
+//client.createEntity(myEntity, function(error, createdEntity) //creates an entity
+//{
+//	if(error){console.log('could not create entity');}
+//	else {createdEntity.get("uuid");} //to retrieve entity properties}
+//});
+client.createCollection(queryOption, function(error,persons)
+{
+	if(error) console.log('could not query collection');
+	else {
+		var firstPerson=persons.getFirstEntity();
+		document.getElementById('res').innerHTML=firstPerson.get("name");}	
+});
+
+
+</script>
+</body>
+</html>

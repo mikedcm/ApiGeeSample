@@ -3,14 +3,39 @@
 <head>
 </head>
 <body>
+<input type='text' name='queryText' id='queryText' size='100'><br>
+<select multiple name='columns' id='columns'>			
+			<option value='bucharest'>Bucharest</option>
+			<option value='bucharest proximity'>Bucharest proximity</option>
+			<option value='london'>London</option>
+</select>
+<button id='okBtn' onclick='SendQuery()'>Query</button>
 <p id='res'></p>
 
 <script type="text/javascript" src="https://apigee.com/usergrid/sdk/usergrid.0.10.5.js"></script>
-<script src="https://github.com/mikedcm/ApiGeeSample/blob/master/ApiGeeLogic.js"></script>
+<!--<script src="https://github.com/mikedcm/ApiGeeSample/blob/master/ApiGeeLogic.js"></script>-->
+<script src="ApiGeeLogic.js"></script>
 <script>
   LogIn();
   var myEntity={type:'person', name:'thirdOne', first:'josh',last:'pete',job:'architect'};
-  createPerson(myEntity);
+  <!--createPerson(myEntity);-->
+  var queryValue;
+  var displayAt=document.getElementById('res');
+  
+  function loadList()
+  {
+	
+  }
+  
+  function SendQuery()
+  {
+	displayAt.innerHTML="";
+	var queryValue=document.getElementById('queryText').value;
+	var queryOption={
+	  type: 'person',
+	  qs: {ql:queryValue}};
+	queryPerson(queryOption, displayAt);
+  }
 </script>
 </body>
 </html>

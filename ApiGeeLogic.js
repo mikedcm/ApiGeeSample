@@ -8,10 +8,6 @@ function LogIn()
 	appName:"sandbox"});
 }
 
-var queryOption=
-{type: 'person',
- qs: {ql:"where first contains '*ane'"}};
-
 function createPerson(myEntity)
 {
 client.createEntity(myEntity, function(error, createdEntity) //creates an entity
@@ -23,25 +19,26 @@ client.createEntity(myEntity, function(error, createdEntity) //creates an entity
 
 function displayQueryResult(people, displayEl)
 {
-  while(people.hasNextEntity)
+  while(people.hasNextEntity())
   {
     var person=people.getNextEntity();
+	var props=person.get();
+	for(var pr in props)
+		displayEl.innerHTML+=props[pr];
     var first=person.get('first');
     var last=person.get('last');
     var job=person.get('job');
-    displayEl.innerHTML=first+" "+last+" "+job+"<br>";
+    displayEl.innerHTML+=first+" "+last+" "+job+"<br>";
   }
 }
 
-function queryPerson(queryOption)
+function queryPerson(queryOption,displayAt)
 {
 client.createCollection(queryOption, function(error,people)
 {
 	if(error) console.log('could not query collection');
-	else {
-		var displayAt=document.getElementById('res');
-		displayQueryResult(people,displayAt);
-		}	
+	else {		
+		displayQueryResult(people,displayAt);}	
 });
 }
 

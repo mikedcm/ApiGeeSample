@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+<form action='#'>
+<input type='submit' id='search'>
+</form>
+<div id='results'></div>
+
+<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script>
+function SearchYoutube(){
+var request=gapi.client.youtube.search.list({
+	part:"snippet",
+	type:"video",
+	q:encodeURIComponent("nice"),
+	order:"viewCount",
+	publishedAfter:"2015-01-01T00:00:00Z"
+});
+request.execute(function(response)
+{
+	console.log(response);
+	var str=JSON.stringify(response.result,'',4);
+	document.getElementById('results').textContent=str;
+	//alert(str);
+});
+};
+
+function OnClientLoad()
+{
+gapi.client.setApiKey('AIzaSyDwL3jYlaDEMhFVIZq8UJk-FpUlFfjufIs');
+gapi.client.load('youtube', 'v3',function()
+{
+	SearchYoutube();
+});
+}
+</script>
+<script src="https://apis.google.com/js/client.js?onload=OnClientLoad"></script>
+</body>
+</html>
